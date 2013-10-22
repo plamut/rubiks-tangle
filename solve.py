@@ -63,10 +63,9 @@ class Card(object):
         idx = (item_idx - 2 * (self.orientation % 4)) % 8
 
         if self.orientation < 4:  # front side up
-            edge = self.edges[idx // 2]
+            return (self.edges[idx // 2])[idx % 2]
         else:
-            edge = self.edges[idx // 2 + 4]
-        return edge[idx % 2]
+            return (self.edges[idx // 2 + 4])[idx % 2]
 
     def __setitem__(self, item_idx, item):
         """Prevent any subsequent modifications of the card's edge colors."""
