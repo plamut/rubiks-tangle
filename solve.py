@@ -5,6 +5,8 @@ import cStringIO
 from collections import namedtuple
 
 
+COMBOS_TRIED = 0  # the number of placements tried during the search
+
 TermColors = dict(
     BOLD='\033[1m',
     INV='\033[7m',  # inverted background and foreground
@@ -323,14 +325,14 @@ def generate_cards():
 
 
 def solve_problem(panel, avail_cards):
-    global COMBOS
+    global COMBOS_TRIED
 
     if not avail_cards:
         yield panel   # all cards have been placed, we have a solution
     else:
         for card in avail_cards:
             for orientation in Card.Orientation:
-                COMBOS += 1
+                COMBOS_TRIED += 1
                 # copy needed? just remove it form the list/set!
                 # XXX: profile!
                 new_card = Card(card.card_id, card.edges, orientation)
@@ -353,8 +355,8 @@ def solve_problem(panel, avail_cards):
                     panel.remove_last()
 
 
-if __name__ == "__main__":
-    COMBOS = 0
+def main():
+    global COMBOS_TRIED
     n_solutions = 0
 
     cards = generate_cards()
@@ -362,10 +364,14 @@ if __name__ == "__main__":
 
     for solved_panel in solve_problem(panel, cards):
         n_solutions += 1
-        print(solved_panel, "\n")
-        # break  # uncomment if you don't want ALL solutions
+        print(solved_panel, '\n')
+        # break  # uncomment if need the first solution found
 
     print("*** SOLUTIONS FOUND: ",
           TermColors.BOLD, n_solutions, TermColors.RESET, sep='')
     print("*** COMBINATIONS CHECKED: ",
-          TermColors.BOLD, COMBOS, TermColors.RESET, sep='')
+          TermColors.BOLD, COMBOS_TRIED, TermColors.RESET, sep='')
+
+
+if __name__ == "__main__":
+    main()
