@@ -215,28 +215,28 @@ class GamePanel(object):
         idx = GamePanel.SLOT_NEIGHBORS[self.curr_slot].north
         neighbor_card = self.slots[idx] if (idx is not None) else None
         if neighbor_card is not None:
-            if (card[0], card[1]) != (neighbor_card[5], neighbor_card[4]):
+            if (card[0] != neighbor_card[5]) or (card[1] != neighbor_card[4]):
                 return False
 
         # eastern neighbor
         idx = GamePanel.SLOT_NEIGHBORS[self.curr_slot].east
         neighbor_card = self.slots[idx] if (idx is not None) else None
         if neighbor_card is not None:
-            if (card[2], card[3]) != (neighbor_card[7], neighbor_card[6]):
+            if (card[2] != neighbor_card[7]) or (card[3] != neighbor_card[6]):
                 return False
 
         # southern neighbor
         idx = GamePanel.SLOT_NEIGHBORS[self.curr_slot].south
         neighbor_card = self.slots[idx] if (idx is not None) else None
         if neighbor_card is not None:
-            if (card[5], card[4]) != (neighbor_card[0], neighbor_card[1]):
+            if (card[5] != neighbor_card[0]) or (card[4] != neighbor_card[1]):
                 return False
 
         # western neighbor
         idx = GamePanel.SLOT_NEIGHBORS[self.curr_slot].west
         neighbor_card = self.slots[idx] if (idx is not None) else None
         if neighbor_card is not None:
-            if (card[7], card[6]) != (neighbor_card[2], neighbor_card[3]):
+            if (card[7] != neighbor_card[2]) or (card[6] != neighbor_card[3]):
                 return False
 
         return True
